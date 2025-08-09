@@ -170,27 +170,29 @@
             <a class="btn" href="mailto:serenitylivingoflexington@gmail.com">Email Us</a>
             <button class="btn" type="button" id="openTourModal">Schedule a Tour</button>
           </div>
-          <div class="contact-grid">
+          <div class="contact-flex">
             <aside class="contact-info">
-              <ul>
-                <li><strong>Address:</strong> <a href="https://www.google.com/maps?q=120+Rice+Dr,+Gilbert,+SC+29054" target="_blank" rel="noopener">120 Rice Dr, Gilbert, SC 29054</a></li>
-                <li><strong>Phone:</strong> <a href="tel:+18555551234">(855) 555-1234</a></li>
-                <li><strong>Email:</strong> <a href="mailto:serenitylivingoflexington@gmail.com">serenitylivingoflexington@gmail.com</a></li>
-                <li><strong>Social:</strong>
-                  <div class="social-links">
-                    <a href="https://instagram.com/serenitylivingoflexington" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
-                    <a href="https://facebook.com/serenitylivingoflexington" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
-                    <a href="https://x.com/serenitylex" target="_blank" rel="noopener" aria-label="X (Twitter)">X</a>
-                    <a href="https://wa.me/18555551234" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
-                  </div>
-                </li>
-                <li><strong>Visiting Hours:</strong> 10:00 AM – 7:00 PM daily</li>
-              </ul>
+              <div class="contact-details">
+                <ul>
+                  <li><strong>Address:</strong> <a href="https://www.google.com/maps?q=120+Rice+Dr,+Gilbert,+SC+29054" target="_blank" rel="noopener">120 Rice Dr, Gilbert, SC 29054</a></li>
+                  <li><strong>Phone:</strong> <a href="tel:+18555551234">(855) 555-1234</a></li>
+                  <li><strong>Email:</strong> <a href="mailto:serenitylivingoflexington@gmail.com">serenitylivingoflexington@gmail.com</a></li>
+                  <li><strong>Social:</strong>
+                    <div class="social-links">
+                      <a href="https://instagram.com/serenitylivingoflexington" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+                      <a href="https://facebook.com/serenitylivingoflexington" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
+                      <a href="https://x.com/serenitylex" target="_blank" rel="noopener" aria-label="X (Twitter)">X</a>
+                      <a href="https://wa.me/18555551234" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+                    </div>
+                  </li>
+                  <li><strong>Visiting Hours:</strong> 10:00 AM – 7:00 PM daily</li>
+                </ul>
+              </div>
               <div class="map-embed" aria-label="Map to Serenity Living Of Lexington">
                 <iframe title="Map to Serenity Living Of Lexington" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=120+Rice+Dr,+Gilbert,+SC+29054&output=embed"></iframe>
               </div>
             </aside>
-          <form id="contactForm" class="contact-form" novalidate>
+            <form id="contactForm" class="contact-form" novalidate>
               <div class="field-row">
                 <div class="field"><label class="required" for="name">Your Name</label><input id="name" name="name" type="text" required placeholder="Jane Doe" /></div>
                 <div class="field"><label class="required" for="email">Your Email</label><input id="email" name="email" type="email" required placeholder="you@example.com" /></div>
@@ -202,20 +204,20 @@
                     <option value="">Select an option</option>
                     <option>General Question</option>
                     <option>Schedule a Tour</option>
-                    <option>Care Options</option>
-                    <option>Careers</option>
-                    <option>Other</option>
+                    <option>Care</option>
                   </select>
                 </div>
               </div>
-            <div class="field"><label for="message">Your Message</label><textarea id="message" name="message" rows="4" required placeholder="How can we help?"></textarea></div>
-              <div class="field consent-field"><label class="required"><input id="consent" name="consent" type="checkbox" required /> I agree to be contacted by Serenity Living Of Lexington.</label></div>
-              <button type="submit" class="btn" id="contactSubmit">Send Message</button>
-              <p class="form-note muted">We respect your privacy and will not share your information.</p>
-          </form>
+              <div class="field-row">
+                <div class="field"><label for="message">Your Message</label><textarea id="message" name="message" rows="4" placeholder="Type your message here..."></textarea></div>
+              </div>
+              <div class="field-row">
+                <button type="submit">Send Message</button>
+              </div>
+            </form>
           </div>
         </div>
-      </section>
+      </div>
     </main>
 
     <footer class="site-footer">
