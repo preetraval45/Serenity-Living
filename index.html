@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Serenity Living — Senior living and nursing services. Compassionate care, peaceful living. Coming soon." />
     <title>Serenity Living — Coming Soon</title>
-    <link rel="icon" type="image/png" href="/logo.png" />
-    <link rel="preload" as="image" href="/logo.png" />
-    <link rel="stylesheet" href="./style.css" />
-    <script src="./script.js" defer></script>
+    <link rel="icon" type="image/png" href="assets/images/logo.png" />
+    <link rel="preload" as="image" href="assets/images/logo.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="assets/js/script.js" defer></script>
   </head>
   <body>
     <a href="#home" class="skip-link">Skip to content</a>
@@ -16,20 +16,20 @@
       <nav class="site-nav" aria-label="Main">
         <div class="container">
           <a class="brand" href="#home">
-            <img src="/logo.png" onerror="this.onerror=null;this.src='/logo.jpeg'" alt="Serenity Living logo" width="48" height="48" />
+            <img aria-hidden="true" src="assets/images/logo.png" onerror="this.onerror=null;this.src='assets/images/logo.jpeg'" alt="Serenity Living logo" width="48" height="48" />
             <span class="brand-text">Serenity Living</span>
           </a>
           <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-            <span class="nav-toggle-bar" aria-hidden="true"></span>
-            <span class="nav-toggle-bar" aria-hidden="true"></span>
-            <span class="nav-toggle-bar" aria-hidden="true"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
           </button>
-          <ul class="nav-links" id="primary-navigation" role="menubar">
-            <li role="none"><a role="menuitem" href="#home">Home</a></li>
-            <li role="none"><a role="menuitem" href="#about">About</a></li>
-            <li role="none"><a role="menuitem" href="#services">Services</a></li>
-            <li role="none"><a role="menuitem" href="#gallery">Photo Gallery</a></li>
-            <li role="none"><a role="menuitem" href="#contact">Contact</a></li>
+          <ul class="nav-links" id="primary-navigation">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Photo Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
       </nav>
@@ -37,12 +37,12 @@
 
     <main id="home">
       <section class="hero" aria-labelledby="hero-title">
-        <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
-        <canvas id="confettiCanvas" class="hero-canvas" aria-hidden="true"></canvas>
+        <canvas id="heroCanvas" class="hero-canvas"></canvas>
+        <canvas id="confettiCanvas" class="hero-canvas"></canvas>
         <div class="container hero-inner">
           <div class="hero-grid">
             <div class="hero-left">
-              <img class="hero-logo" src="/logo.png" onerror="this.onerror=null;this.src='/logo.jpeg'" alt="Serenity Living logo" />
+              <img aria-hidden="true" class="hero-logo" src="assets/images/logo.png" onerror="this.onerror=null;this.src='assets/images/logo.jpeg'" alt="Serenity Living logo" />
             </div>
             <div class="hero-right">
               <div class="hero-panel">
@@ -160,71 +160,13 @@
         </div>
       </section>
 
-      <section id="contact" aria-labelledby="contact-title">
-        <div class="container section section-xl reveal">
-          <span class="eyebrow">Get In Touch</span>
-          <h2 id="contact-title">Contact Us</h2>
-          <p class="lead">We’re here to help. Call, email, or send us a message and we’ll respond promptly.</p>
-          <div class="contact-actions">
-            <a class="btn" href="tel:+18555551234">Call Now</a>
-            <a class="btn" href="mailto:serenitylivingoflexington@gmail.com">Email Us</a>
-            <button class="btn" type="button" id="openTourModal">Schedule a Tour</button>
-          </div>
-          <div class="contact-flex">
-            <aside class="contact-info">
-              <div class="contact-details">
-                <ul>
-                  <li><strong>Address:</strong> <a href="https://www.google.com/maps?q=120+Rice+Dr,+Gilbert,+SC+29054" target="_blank" rel="noopener">120 Rice Dr, Gilbert, SC 29054</a></li>
-                  <li><strong>Phone:</strong> <a href="tel:+18555551234">(855) 555-1234</a></li>
-                  <li><strong>Email:</strong> <a href="mailto:serenitylivingoflexington@gmail.com">serenitylivingoflexington@gmail.com</a></li>
-                  <li><strong>Social:</strong>
-                    <div class="social-links">
-                      <a href="https://instagram.com/serenitylivingoflexington" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
-                      <a href="https://facebook.com/serenitylivingoflexington" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
-                      <a href="https://x.com/serenitylex" target="_blank" rel="noopener" aria-label="X (Twitter)">X</a>
-                      <a href="https://wa.me/18555551234" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
-                    </div>
-                  </li>
-                  <li><strong>Visiting Hours:</strong> 10:00 AM – 7:00 PM daily</li>
-                </ul>
-              </div>
-              <div class="map-embed" aria-label="Map to Serenity Living Of Lexington">
-                <iframe title="Map to Serenity Living Of Lexington" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=120+Rice+Dr,+Gilbert,+SC+29054&output=embed"></iframe>
-              </div>
-            </aside>
-            <form id="contactForm" class="contact-form" novalidate>
-              <div class="field-row">
-                <div class="field"><label class="required" for="name">Your Name</label><input id="name" name="name" type="text" required placeholder="Jane Doe" /></div>
-                <div class="field"><label class="required" for="email">Your Email</label><input id="email" name="email" type="email" required placeholder="you@example.com" /></div>
-              </div>
-              <div class="field-row">
-                <div class="field"><label for="phone">Phone (optional)</label><input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(555) 555-5555" /></div>
-                <div class="field"><label class="required" for="inquiry">Inquiry Type</label>
-                  <select id="inquiry" name="inquiry" required>
-                    <option value="">Select an option</option>
-                    <option>General Question</option>
-                    <option>Schedule a Tour</option>
-                    <option>Care</option>
-                  </select>
-                </div>
-              </div>
-              <div class="field-row">
-                <div class="field"><label for="message">Your Message</label><textarea id="message" name="message" rows="4" placeholder="Type your message here..."></textarea></div>
-              </div>
-              <div class="field-row">
-                <button type="submit">Send Message</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
     </main>
 
     <footer class="site-footer">
       <div class="container">
         <div class="footer-top">
           <div class="footer-brand">
-            <img src="/logo.png" onerror="this.onerror=null;this.src='/logo.jpeg'" alt="Serenity Living logo" width="40" height="40" />
+            <img aria-hidden="true" src="assets/images/logo.png" onerror="this.onerror=null;this.src='/logo.jpeg'" alt="Serenity Living logo" width="40" height="40" />
             <span class="brand-text">Serenity Living Of Lexington</span>
           </div>
           <div class="social-links">
