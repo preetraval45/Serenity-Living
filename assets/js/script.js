@@ -1,77 +1,161 @@
+
+// Serenity Living - Enhanced JavaScript with Error Fixes
 (function () {
-  const navToggle = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  const contactForm = document.getElementById('contactForm');
-  const heroCanvas = document.getElementById('heroCanvas');
-  const confettiCanvas = document.getElementById('confettiCanvas');
-  let confettiTimerId;
+  'use strict';
 
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  // Utility functions
+  const utils = {
+    // Safe DOM element selection
+    querySelector: (selector) => document.querySelector(selector),
+    querySelectorAll: (selector) => document.querySelectorAll(selector),
+    
+    // Safe string conversion
+    safeString: (value) => {
+      if (value === null || value === undefined) return '';
+      return String(value);
+    },
+    
+    // Debounce function for performance
+    debounce: (func, wait) => {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+  };
 
-  // single-theme (light) — removed theme toggler
+  // DOM elements cache
+  const elements = {
+    navToggle: utils.querySelector('.nav-toggle'),
+    navLinks: utils.querySelector('.nav-links'),
+    contactForm: utils.querySelector('#contactForm'),
+    heroCanvas: utils.querySelector('#heroCanvas'),
+    confettiCanvas: utils.querySelector('#confettiCanvas'),
+    toast: utils.querySelector('#toast'),
+    header: utils.querySelector('header'),
+    toTop: utils.querySelector('.to-top'),
+    tourModal: utils.querySelector('#tourModal'),
+    openTourModalBtn: utils.querySelector('#openTourModal'),
+    tourForm: utils.querySelector('#tourForm'),
+    lightbox: utils.querySelector('#lightbox'),
+    lightboxImg: utils.querySelector('#lightbox-img'),
+    lightboxClose: utils.querySelector('.lightbox-close'),
+    chatbot: utils.querySelector('#chatbot'),
+    chatbotToggle: utils.querySelector('#chatbot-toggle'),
+    chatbotMinimize: utils.querySelector('.chatbot-minimize'),
+    chatbotInput: utils.querySelector('#chatbot-input'),
+    chatbotSend: utils.querySelector('#chatbot-send'),
+    chatbotMessages: utils.querySelector('#chatbot-messages'),
+    chatbotNotification: utils.querySelector('#chatbot-notification'),
+    newsletterForm: utils.querySelector('.newsletter-form'),
+    newsletterInput: utils.querySelector('.newsletter-input'),
+    newsletterBtn: utils.querySelector('.newsletter-btn')
+  };
 
-  if (navToggle && navLinks) {
-    navToggle.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', String(isOpen));
+  // Initialize year display
+  function initializeYear() {
+    const yearEl = utils.querySelector('#year');
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+  }
+
+  // Navigation functionality
+  function initializeNavigation() {
+    if (!elements.navToggle || !elements.navLinks) return;
+
+    elements.navToggle.addEventListener('click', () => {
+      const isOpen = elements.navLinks.classList.toggle('open');
+      elements.navToggle.setAttribute('aria-expanded', String(isOpen));
     });
-    navLinks.querySelectorAll('a').forEach((link) => {
+
+    const navLinksArray = elements.navLinks.querySelectorAll('a');
+    navLinksArray.forEach((link) => {
       link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
+        elements.navLinks.classList.remove('open');
+        elements.navToggle.setAttribute('aria-expanded', 'false');
       });
     });
   }
 
-  // Set active nav item on scroll
-  const sections = Array.from(document.querySelectorAll('main section[id]'));
-  const menuLinks = Array.from(navLinks ? navLinks.querySelectorAll('a[href^="#"]') : []);
-  function setActive(hash) {
-    menuLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === hash));
-  }
-  if (sections.length && menuLinks.length) {
-    const io = new IntersectionObserver((entries) => {
+  // Active navigation highlighting
+  function initializeActiveNavigation() {
+    const sections = Array.from(utils.querySelectorAll('main section[id]'));
+    const menuLinks = Array.from(elements.navLinks?.querySelectorAll('a[href^="#"]') || []);
+    
+    if (!sections.length || !menuLinks.length) return;
+
+    function setActive(hash) {
+      menuLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === hash));
+    }
+
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) setActive('#' + entry.target.id);
+        if (entry.isIntersecting) {
+          setActive('#' + entry.target.id);
+        }
       });
     }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
-    sections.forEach((s) => io.observe(s));
+
+    sections.forEach((s) => observer.observe(s));
   }
 
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+  // Contact form handling
+  function initializeContactForm() {
+    if (!elements.contactForm) return;
+
+    elements.contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const formData = new FormData(contactForm);
-      const name = formData.get('name');
-      alert(`Thank you, ${name || 'friend'}! We will be in touch soon.`);
-      contactForm.reset();
+      const formData = new FormData(elements.contactForm);
+      const name = utils.safeString(formData.get('name')) || 'friend';
+      showToast(`Thank you, ${name}! We will be in touch soon.`);
+      elements.contactForm.reset();
     });
   }
 
-  // Remove 3D shapes; use lightweight 2D particle fallback only
-  if (heroCanvas && heroCanvas.getContext) {
-    // fallback: 2D particles
-    const ctx = heroCanvas.getContext('2d');
-    let width = (heroCanvas.width = heroCanvas.offsetWidth);
-    let height = (heroCanvas.height = heroCanvas.offsetHeight);
-    const particleCount = Math.min(120, Math.floor((width * height) / 12000));
-    const particles = new Array(particleCount).fill(0).map(() => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * (0.2 + Math.random() * 0.6),
-      vy: (Math.random() - 0.5) * (0.2 + Math.random() * 0.6),
-      size: 0.6 + Math.random() * 1.8,
-      depth: Math.random(),
-      hue: 210 + Math.random() * 40,
-    }));
-    function draw() {
+  // Canvas animations - simplified and optimized
+  function initializeHeroCanvas() {
+    if (!elements.heroCanvas?.getContext) return;
+
+    const ctx = elements.heroCanvas.getContext('2d');
+    let width, height, particles;
+
+    function initCanvas() {
+      width = elements.heroCanvas.width = elements.heroCanvas.offsetWidth;
+      height = elements.heroCanvas.height = elements.heroCanvas.offsetHeight;
+      const particleCount = Math.min(120, Math.floor((width * height) / 12000));
+      
+      particles = Array.from({ length: particleCount }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        size: 0.6 + Math.random() * 1.8,
+        depth: Math.random(),
+        hue: 200 + Math.random() * 50,
+      }));
+    }
+
+    function animate() {
       ctx.clearRect(0, 0, width, height);
-      for (const p of particles) {
+      
+      particles.forEach(p => {
+        // Update position
         p.x += p.vx * (1 + p.depth);
         p.y += p.vy * (1 + p.depth);
-        if (p.x < -10) p.x = width + 10; if (p.x > width + 10) p.x = -10;
-        if (p.y < -10) p.y = height + 10; if (p.y > height + 10) p.y = -10;
+        
+        // Wrap around edges
+        if (p.x < -10) p.x = width + 10;
+        if (p.x > width + 10) p.x = -10;
+        if (p.y < -10) p.y = height + 10;
+        if (p.y > height + 10) p.y = -10;
+        
+        // Draw particle
         const alpha = 0.35 + p.depth * 0.35;
         ctx.beginPath();
         ctx.fillStyle = `hsla(${p.hue}, 90%, 40%, ${alpha})`;
@@ -80,35 +164,38 @@
         ctx.arc(p.x, p.y, p.size + p.depth * 2, 0, Math.PI * 2);
         ctx.fill();
         ctx.shadowBlur = 0;
-      }
-      requestAnimationFrame(draw);
+      });
+      
+      requestAnimationFrame(animate);
     }
-    function resize2D() {
-      width = heroCanvas.width = heroCanvas.offsetWidth;
-      height = heroCanvas.height = heroCanvas.offsetHeight;
-    }
-    window.addEventListener('resize', resize2D);
-    resize2D();
-    draw();
+
+    const resizeHandler = utils.debounce(initCanvas, 250);
+    window.addEventListener('resize', resizeHandler);
+    
+    initCanvas();
+    animate();
   }
 
+  // Confetti animation
   function launchConfetti() {
-    const count = 160;
-    const defaults = { spread: 70, ticks: 300, gravity: 0.8 };
     const canvas = document.createElement('canvas');
-    canvas.style.position = 'fixed';
-    canvas.style.inset = '0';
-    canvas.style.pointerEvents = 'none';
-    canvas.style.zIndex = '10';
+    Object.assign(canvas.style, {
+      position: 'fixed',
+      inset: '0',
+      pointerEvents: 'none',
+      zIndex: '10'
+    });
+    
     document.body.appendChild(canvas);
     const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
     resizeCanvas();
 
-    const pieces = Array.from({ length: count }).map(() => createPiece());
-    let raf;
-    step();
-
-    function createPiece() {
+    const pieces = Array.from({ length: 160 }, () => {
       const angle = Math.random() * Math.PI * 2;
       return {
         x: canvas.width / 2,
@@ -118,96 +205,96 @@
         size: 5 + Math.random() * 6,
         rot: Math.random() * Math.PI,
         vr: (Math.random() - 0.5) * 0.2,
-        color: `hsl(${200 + Math.random() * 60} 90% ${50 + Math.random() * 30}%)`,
-        life: defaults.ticks,
+        color: `hsl(${200 + Math.random() * 40} 85% ${60 + Math.random() * 25}%)`,
+        life: 300,
       };
-    }
+    });
 
-    function step() {
+    function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (const p of pieces) {
+      
+      pieces.forEach(p => {
         p.life -= 1;
-        if (p.life <= 0) continue;
-        p.vy += 0.04 * defaults.gravity;
+        if (p.life <= 0) return;
+        
+        p.vy += 0.04 * 0.8;
         p.x += p.vx;
         p.y += p.vy;
         p.rot += p.vr;
+        
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
         ctx.fillStyle = p.color;
         ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
         ctx.restore();
-      }
-      if (pieces.some((p) => p.life > 0 && p.y < canvas.height + 50)) {
-        raf = requestAnimationFrame(step);
+      });
+      
+      if (pieces.some(p => p.life > 0 && p.y < canvas.height + 50)) {
+        requestAnimationFrame(animate);
       } else {
-        cancelAnimationFrame(raf);
         canvas.remove();
       }
     }
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas, { once: true });
+    
+    animate();
   }
 
-  window.addEventListener('load', () => {
-    confettiTimerId = setTimeout(launchConfetti, 600);
-  });
-  // no theme toggle confetti restart
+  // Confetti overlay for hero section
+  function initializeConfettiCanvas() {
+    if (!elements.confettiCanvas?.getContext) return;
 
-  // Confetti overlay in hero — continuous, colorful
-  if (confettiCanvas && confettiCanvas.getContext) {
-    // Only render confetti on the home hero section
-    const heroSection = document.querySelector('.hero');
+    const heroSection = utils.querySelector('.hero');
+    if (!heroSection) return;
+
+    const ctx = elements.confettiCanvas.getContext('2d');
+    let width, height, pieces;
+
     function inView() {
-      if (!heroSection) return false;
-      const r = heroSection.getBoundingClientRect();
-      return r.top < window.innerHeight && r.bottom > 0;
+      const rect = heroSection.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
     }
-    const ctx = confettiCanvas.getContext('2d');
-    let width, height, pieces, raf;
+
     function resize() {
-      width = confettiCanvas.width = confettiCanvas.offsetWidth;
-      height = confettiCanvas.height = confettiCanvas.offsetHeight;
-      pieces = Array.from({ length: 160 }, () => newPiece());
+      width = elements.confettiCanvas.width = elements.confettiCanvas.offsetWidth;
+      height = elements.confettiCanvas.height = elements.confettiCanvas.offsetHeight;
+      pieces = Array.from({ length: 160 }, () => createPiece());
     }
-    function newPiece() {
-      const size = 4 + Math.random() * 6;
-      const hue = 190 + Math.random() * 160; // multi-color range
+
+    function createPiece() {
       return {
         x: Math.random() * width,
         y: Math.random() * -height,
         vx: (Math.random() - 0.5) * 0.6,
         vy: 1.2 + Math.random() * 1.8,
-        size,
+        size: 4 + Math.random() * 6,
         rot: Math.random() * Math.PI,
         vr: (Math.random() - 0.5) * 0.12,
-        color: `hsl(${hue} 90% ${50 + Math.random() * 25}%)`,
+        color: `hsl(${200 + Math.random() * 60} 85% ${60 + Math.random() * 25}%)`,
         shape: Math.random() < 0.5 ? 'rect' : 'circle',
       };
     }
-    function step() {
+
+    function animate() {
       ctx.clearRect(0, 0, width, height);
-      for (const p of pieces) {
+      
+      pieces.forEach((p, idx) => {
         p.x += p.vx;
         p.y += p.vy;
         p.rot += p.vr;
+        
         if (p.y > height + 20) {
-          // reset to top
-          const idx = pieces.indexOf(p);
-          pieces[idx] = newPiece();
+          pieces[idx] = createPiece();
           pieces[idx].y = -10;
           pieces[idx].x = Math.random() * width;
-          continue;
+          return;
         }
+        
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
         ctx.fillStyle = p.color;
+        
         if (p.shape === 'rect') {
           ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
         } else {
@@ -216,204 +303,590 @@
           ctx.fill();
         }
         ctx.restore();
-      }
-      raf = requestAnimationFrame(step);
+      });
+      
+      requestAnimationFrame(animate);
     }
-    window.addEventListener('resize', resize);
+
+    const resizeHandler = utils.debounce(resize, 250);
+    window.addEventListener('resize', resizeHandler);
     resize();
+
     function loop() {
-      if (inView()) { step(); }
-      else { ctx.clearRect(0, 0, width, height); requestAnimationFrame(loop); }
+      if (inView()) {
+        animate();
+      } else {
+        ctx.clearRect(0, 0, width, height);
+        requestAnimationFrame(loop);
+      }
     }
     loop();
   }
 
-  // Contact form inline validation + toast
-  const toast = document.getElementById('toast');
+  // Toast notification system
   function showToast(message) {
-    if (!toast) return;
-    toast.textContent = message;
-    toast.setAttribute('aria-hidden', 'false');
-    toast.classList.add('show');
+    if (!elements.toast) return;
+    
+    elements.toast.textContent = message;
+    elements.toast.setAttribute('aria-hidden', 'false');
+    elements.toast.classList.add('show');
+    
     setTimeout(() => {
-      toast.classList.remove('show');
-      toast.setAttribute('aria-hidden', 'true');
+      elements.toast.classList.remove('show');
+      elements.toast.setAttribute('aria-hidden', 'true');
     }, 2600);
   }
-  if (contactForm) {
-    const nameEl = document.getElementById('name');
-    const emailEl = document.getElementById('email');
-    const messageEl = document.getElementById('message');
-    const consentEl = document.getElementById('consent');
-    const inquiryEl = document.getElementById('inquiry');
 
-    function validateField(input, type) {
-      const field = input.closest('.field');
-      const error = field.querySelector('.error-text') || document.createElement('div');
+  // Form validation helper
+  function validateField(input, type) {
+    const field = input.closest('.field') || input.closest('.consent-field');
+    if (!field) return false;
+    
+    let error = field.querySelector('.error-text');
+    if (!error) {
+      error = document.createElement('div');
       error.className = 'error-text';
-      let valid = true;
-      let msg = '';
-      if (!input.value.trim()) { valid = false; msg = 'Required'; }
-      if (valid && type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) { valid = false; msg = 'Enter a valid email'; }
-      field.classList.toggle('invalid', !valid);
-      if (!error.parentNode) field.appendChild(error);
-      error.textContent = valid ? '' : msg;
-      return valid;
+      field.appendChild(error);
+    }
+    
+    const value = utils.safeString(input.value).trim();
+    let isValid = true;
+    let message = '';
+    
+    // Validation logic
+    if (['text', 'date', 'time', 'select-one'].includes(type) && !value) {
+      isValid = false;
+      message = 'Required';
+    } else if (type === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      isValid = emailRegex.test(value);
+      message = isValid ? '' : 'Enter a valid email';
+    } else if (type === 'checkbox') {
+      isValid = input.checked;
+      message = isValid ? '' : 'Required';
+    }
+    
+    field.classList.toggle('invalid', !isValid);
+    error.textContent = isValid ? '' : message;
+    
+    return isValid;
+  }
+
+  // Contact form validation
+  function initializeContactFormValidation() {
+    if (!elements.contactForm) return;
+
+    const fields = [
+      { element: utils.querySelector('#name'), type: 'text' },
+      { element: utils.querySelector('#email'), type: 'email' },
+      { element: utils.querySelector('#message'), type: 'text' },
+      { element: utils.querySelector('#inquiry'), type: 'select-one' },
+      { element: utils.querySelector('#consent'), type: 'checkbox' }
+    ].filter(field => field.element);
+
+    // Add event listeners
+    fields.forEach(({ element, type }) => {
+      const events = ['blur', 'input'];
+      if (['checkbox', 'select-one'].includes(type)) {
+        events.push('change');
+      }
+      
+      events.forEach(eventType => {
+        element.addEventListener(eventType, () => validateField(element, type));
+      });
+    });
+
+    // Form submission
+    elements.contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const validationResults = fields.map(({ element, type }) => validateField(element, type));
+      const allValid = validationResults.every(Boolean);
+      
+      if (allValid) {
+        showToast('Thanks! We'll be in touch.');
+        elements.contactForm.reset();
+        clearFormErrors(elements.contactForm);
+      }
+    });
+  }
+
+  // Clear form validation errors
+  function clearFormErrors(form) {
+    const fields = form.querySelectorAll('.field, .consent-field');
+    fields.forEach(field => field.classList.remove('invalid'));
+    
+    const errors = form.querySelectorAll('.error-text');
+    errors.forEach(error => error.textContent = '');
+  }
+
+  // Scroll effects
+  function initializeScrollEffects() {
+    const scrollHandler = utils.debounce(() => {
+      const scrollY = window.scrollY;
+      
+      // Header scroll effect
+      if (elements.header) {
+        elements.header.classList.toggle('is-scrolled', scrollY > 8);
+      }
+      
+      // Back to top button
+      if (elements.toTop) {
+        elements.toTop.classList.toggle('show', scrollY > 450);
+      }
+    }, 10);
+    
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    scrollHandler(); // Initial call
+  }
+
+  // Modal functionality
+  function initializeModals() {
+    if (!elements.tourModal) return;
+
+    function openModal() {
+      elements.tourModal.classList.add('show');
+      elements.tourModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
     }
 
-    [nameEl, emailEl, messageEl, inquiryEl, consentEl].forEach((el) => {
-      if (!el) return;
-      const type = el.type || el.tagName.toLowerCase();
-      el.addEventListener('blur', () => validateField(el, type));
-      el.addEventListener('input', () => validateField(el, type));
-      if (type === 'checkbox' || type === 'select-one') el.addEventListener('change', () => validateField(el, type));
-    });
-
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const ok =
-        validateField(nameEl, 'text') &
-        validateField(emailEl, 'email') &
-        validateField(messageEl, 'text') &
-        validateField(inquiryEl, 'select-one') &
-        validateField(consentEl, 'checkbox');
-      if (!ok) return;
-      showToast('Thanks! We’ll be in touch.');
-      contactForm.reset();
-      // clear errors
-      contactForm.querySelectorAll('.field').forEach((f) => f.classList.remove('invalid'));
-      contactForm.querySelectorAll('.error-text').forEach((n) => (n.textContent = ''));
-    });
-  }
-
-  // Sticky header shadow
-  const header = document.querySelector('header');
-  function onScroll() {
-    if (!header) return;
-    header.classList.toggle('is-scrolled', window.scrollY > 8);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  // Back to top button
-  const toTop = document.querySelector('.to-top');
-  function onScrollToTop() {
-    if (!toTop) return;
-    toTop.classList.toggle('show', window.scrollY > 450);
-  }
-  window.addEventListener('scroll', onScrollToTop, { passive: true });
-  onScrollToTop();
-
-  // Tour modal open/close and validation
-  const tourModal = document.getElementById('tourModal');
-  const openTourModalBtn = document.getElementById('openTourModal');
-  const tourForm = document.getElementById('tourForm');
-  function openModal() {
-    if (!tourModal) return;
-    tourModal.classList.add('show');
-    tourModal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal() {
-    if (!tourModal) return;
-    tourModal.classList.remove('show');
-    tourModal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-  if (openTourModalBtn) openTourModalBtn.addEventListener('click', openModal);
-  if (tourModal) {
-    tourModal.querySelectorAll('[data-close-modal]').forEach((el) => el.addEventListener('click', closeModal));
-  }
-  if (tourForm) {
-    const tName = document.getElementById('tourName');
-    const tEmail = document.getElementById('tourEmail');
-    const tResidents = document.getElementById('tourResidents');
-    const tDate = document.getElementById('tourDate');
-    const tTime = document.getElementById('tourTime');
-    const tConsent = document.getElementById('tourConsent');
-
-    function validateField(input, type) {
-      const field = input.closest('.field') || input.closest('.consent-field');
-      const error = field.querySelector('.error-text') || document.createElement('div');
-      error.className = 'error-text';
-      let valid = true; let msg = '';
-      const value = (input.value || '').toString().trim();
-      if ((type === 'text' || type === 'date' || type === 'time' || type === 'select-one') && !value) { valid = false; msg = 'Required'; }
-      if (type === 'email') { valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); msg = valid ? '' : 'Enter a valid email'; }
-      if (type === 'checkbox') { valid = input.checked; msg = valid ? '' : 'Required'; }
-      field.classList.toggle('invalid', !valid);
-      if (!error.parentNode) field.appendChild(error);
-      error.textContent = valid ? '' : msg;
-      return valid;
+    function closeModal() {
+      elements.tourModal.classList.remove('show');
+      elements.tourModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
     }
 
-    [tName, tEmail, tResidents, tDate, tTime, tConsent].forEach((el) => {
-      const type = el.type || el.tagName.toLowerCase();
-      el.addEventListener('blur', () => validateField(el, type));
-      el.addEventListener('input', () => validateField(el, type));
-      if (type === 'checkbox' || type === 'select-one') el.addEventListener('change', () => validateField(el, type));
+    // Open modal button
+    elements.openTourModalBtn?.addEventListener('click', openModal);
+
+    // Close modal buttons
+    const closeButtons = elements.tourModal.querySelectorAll('[data-close-modal]');
+    closeButtons.forEach(button => button.addEventListener('click', closeModal));
+
+    // Tour form validation
+    if (elements.tourForm) {
+      initializeTourFormValidation(closeModal);
+    }
+  }
+
+  // Tour form validation
+  function initializeTourFormValidation(closeModal) {
+    const fields = [
+      { element: utils.querySelector('#tourName'), type: 'text' },
+      { element: utils.querySelector('#tourEmail'), type: 'email' },
+      { element: utils.querySelector('#tourResidents'), type: 'select-one' },
+      { element: utils.querySelector('#tourDate'), type: 'date' },
+      { element: utils.querySelector('#tourTime'), type: 'time' },
+      { element: utils.querySelector('#tourConsent'), type: 'checkbox' }
+    ].filter(field => field.element);
+
+    // Add validation event listeners
+    fields.forEach(({ element, type }) => {
+      const events = ['blur', 'input'];
+      if (['checkbox', 'select-one'].includes(type)) {
+        events.push('change');
+      }
+      
+      events.forEach(eventType => {
+        element.addEventListener(eventType, () => validateField(element, type));
+      });
     });
 
-    tourForm.addEventListener('submit', (e) => {
+    // Form submission
+    elements.tourForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const ok = [
-        validateField(tName, 'text'),
-        validateField(tEmail, 'email'),
-        validateField(tResidents, 'select-one'),
-        validateField(tDate, 'date'),
-        validateField(tTime, 'time'),
-        validateField(tConsent, 'checkbox'),
-      ].every(Boolean);
-      if (!ok) return;
-      showToast('Tour request sent! We’ll contact you shortly.');
-      tourForm.reset();
-      tourForm.querySelectorAll('.field, .consent-field').forEach((f) => f.classList.remove('invalid'));
-      tourForm.querySelectorAll('.error-text').forEach((n) => (n.textContent = ''));
-      closeModal();
+      
+      const validationResults = fields.map(({ element, type }) => validateField(element, type));
+      const allValid = validationResults.every(Boolean);
+      
+      if (allValid) {
+        showToast('Tour request sent! We'll contact you shortly.'),
+        elements.tourForm.reset(),
+        clearFormErrors(elements.tourForm);
+        closeModal();
+      }
     });
   }
-  // Remove stat counters for new business
 
   // Scroll reveal animations
-  const reveals = Array.from(document.querySelectorAll('.reveal'));
-  if (window.IntersectionObserver && reveals.length) {
-    const io = new IntersectionObserver((entries) => {
+  function initializeScrollReveal() {
+    const reveals = Array.from(utils.querySelectorAll('.reveal'));
+    
+    if (!window.IntersectionObserver || !reveals.length) {
+      reveals.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          // stagger children if present
-          const stagger = entry.target.querySelectorAll('.stagger-item');
-          stagger.forEach((el, i) => {
+          
+          // Stagger children if present
+          const staggerItems = entry.target.querySelectorAll('.stagger-item');
+          staggerItems.forEach((el, i) => {
             setTimeout(() => el.classList.add('in'), i * 80);
           });
-          io.unobserve(entry.target);
+          
+          observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.15 });
-    reveals.forEach((el) => io.observe(el));
-  } else {
-    reveals.forEach((el) => el.classList.add('is-visible'));
+
+    reveals.forEach(el => observer.observe(el));
   }
 
-  // Interactive card tilt
-  const tiltCards = Array.from(document.querySelectorAll('.card'));
-  tiltCards.forEach((card) => {
-    card.setAttribute('data-tilt', 'true');
-    let rect;
-    function updateRect() { rect = card.getBoundingClientRect(); }
-    updateRect();
-    window.addEventListener('resize', updateRect);
-    card.addEventListener('mousemove', (e) => {
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      const rotateX = (y * -12).toFixed(2);
-      const rotateY = (x * 12).toFixed(2);
-      card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  // Interactive card tilt effects
+  function initializeCardTilt() {
+    const tiltCards = Array.from(utils.querySelectorAll('.card'));
+    
+    tiltCards.forEach((card) => {
+      card.setAttribute('data-tilt', 'true');
+      let rect;
+      
+      const updateRect = () => {
+        rect = card.getBoundingClientRect();
+      };
+      
+      updateRect();
+      window.addEventListener('resize', utils.debounce(updateRect, 250));
+      
+      card.addEventListener('mousemove', (e) => {
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        const rotateX = (y * -12).toFixed(2);
+        const rotateY = (x * 12).toFixed(2);
+        card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+      });
     });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+  }
+
+  // Lightbox functionality
+  function initializeLightbox() {
+    const galleryImages = utils.querySelectorAll('.gallery-item img');
+    
+    if (!elements.lightbox || !elements.lightboxImg || !galleryImages.length) return;
+
+    function closeLightbox() {
+      elements.lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Image click handlers
+    galleryImages.forEach((img) => {
+      img.addEventListener('click', () => {
+        elements.lightboxImg.src = img.src;
+        elements.lightboxImg.alt = img.alt;
+        elements.lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
     });
-  });
+
+    // Close button
+    elements.lightboxClose?.addEventListener('click', closeLightbox);
+
+    // Click outside to close
+    elements.lightbox.addEventListener('click', (e) => {
+      if (e.target === elements.lightbox) closeLightbox();
+    });
+
+    // Escape key to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && elements.lightbox.classList.contains('active')) {
+        closeLightbox();
+      }
+    });
+  }
+
+  // Parallax effects
+  function initializeParallax() {
+    const parallaxElements = utils.querySelectorAll('.parallax-bg');
+    const gallerySection = utils.querySelector('#gallery');
+    
+    if (!parallaxElements.length || !gallerySection) return;
+
+    const updateParallax = utils.debounce(() => {
+      const scrollY = window.scrollY;
+      const galleryRect = gallerySection.getBoundingClientRect();
+      const galleryTop = gallerySection.offsetTop;
+      const galleryHeight = gallerySection.offsetHeight;
+      
+      // Only apply parallax when gallery is in view
+      if (galleryRect.bottom >= 0 && galleryRect.top <= window.innerHeight) {
+        const progress = (scrollY - galleryTop) / galleryHeight;
+        
+        parallaxElements.forEach((element, index) => {
+          const speed = (index + 1) * 0.5;
+          const yPos = progress * speed * 100;
+          element.style.transform = `translateY(${yPos}px) translateZ(0)`;
+        });
+      }
+    }, 10);
+
+    window.addEventListener('scroll', updateParallax, { passive: true });
+    updateParallax();
+  }
+
+  // Chatbot functionality
+  let isChatbotOpen = false;
+
+  const botResponses = {
+    'tell me about your services': 'We offer comprehensive services including Assisted Living, Skilled Nursing, Memory Care, Respite Care, Rehabilitation & Therapy, and Dining & Nutrition. Each service is tailored to meet individual resident needs with compassionate, professional care.',
+    'how do i schedule a tour': 'You can schedule a tour by clicking the "Schedule Tour" button above, calling us at (855) 555-1234, or filling out our contact form. We offer tours daily from 10:00 AM to 7:00 PM.',
+    'what are your visiting hours': 'Our visiting hours are 10:00 AM to 7:00 PM daily. We welcome family and friends to visit anytime during these hours. For special circumstances, please call us at (855) 555-1234.',
+    'how much does care cost': 'Our pricing varies based on the level of care needed and specific services required. We offer personalized care plans to ensure you only pay for what you need. Please contact us at (855) 555-1234 for detailed pricing information.',
+    'default': 'Thank you for your question! For specific information about our services, pricing, or to schedule a visit, please call us at (855) 555-1234 or email serenitylivingoflexington@gmail.com.'
+  };
+
+  function initializeChatbot() {
+    if (!elements.chatbot) return;
+
+    function toggleChatbot() {
+      isChatbotOpen = !isChatbotOpen;
+      elements.chatbot.classList.toggle('active', isChatbotOpen);
+      elements.chatbot.setAttribute('aria-hidden', !isChatbotOpen);
+      
+      if (isChatbotOpen) {
+        elements.chatbotInput?.focus();
+        elements.chatbotNotification?.classList.add('hidden');
+      }
+    }
+
+    function addMessage(content, isUser = false) {
+      if (!elements.chatbotMessages) return;
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+      
+      messageDiv.innerHTML = `
+        <div class="message-avatar">${isUser ? '👤' : '🤖'}</div>
+        <div class="message-content">
+          <p>${content}</p>
+        </div>
+      `;
+      
+      elements.chatbotMessages.appendChild(messageDiv);
+      elements.chatbotMessages.scrollTop = elements.chatbotMessages.scrollHeight;
+    }
+
+    function getBotResponse(userMessage) {
+      const lowerMessage = userMessage.toLowerCase().trim();
+      
+      for (const key in botResponses) {
+        if (key !== 'default' && lowerMessage.includes(key)) {
+          return botResponses[key];
+        }
+      }
+      
+      return botResponses.default;
+    }
+
+    function sendMessage() {
+      if (!elements.chatbotInput) return;
+      
+      const message = elements.chatbotInput.value.trim();
+      if (!message) return;
+      
+      addMessage(message, true);
+      elements.chatbotInput.value = '';
+      
+      setTimeout(() => {
+        const response = getBotResponse(message);
+        addMessage(response);
+      }, 500 + Math.random() * 1000);
+    }
+
+    // Event listeners
+    elements.chatbotToggle?.addEventListener('click', toggleChatbot);
+    elements.chatbotMinimize?.addEventListener('click', toggleChatbot);
+    elements.chatbotSend?.addEventListener('click', sendMessage);
+    
+    elements.chatbotInput?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    // Quick action buttons
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('quick-action')) {
+        const message = e.target.getAttribute('data-message');
+        if (message) {
+          addMessage(message, true);
+          setTimeout(() => {
+            const response = getBotResponse(message);
+            addMessage(response);
+          }, 500);
+        }
+      }
+    });
+
+    // Close chatbot when clicking outside
+    document.addEventListener('click', (e) => {
+      if (isChatbotOpen && 
+          !elements.chatbot.contains(e.target) && 
+          !elements.chatbotToggle?.contains(e.target)) {
+        toggleChatbot();
+      }
+    });
+
+    // Escape key to close chatbot
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isChatbotOpen) {
+        toggleChatbot();
+      }
+    });
+  }
+
+  // Newsletter functionality
+  function initializeNewsletter() {
+    if (!elements.newsletterForm || !elements.newsletterInput || !elements.newsletterBtn) return;
+
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const email = elements.newsletterInput.value.trim();
+      
+      if (!email) {
+        showToast('Please enter your email address');
+        elements.newsletterInput.focus();
+        return;
+      }
+      
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showToast('Please enter a valid email address');
+        elements.newsletterInput.focus();
+        return;
+      }
+      
+      // Simulate newsletter signup
+      elements.newsletterBtn.classList.add('loading');
+      elements.newsletterBtn.textContent = 'Subscribing...';
+      
+      setTimeout(() => {
+        showToast('🎉 Thank you for subscribing to our newsletter!');
+        elements.newsletterInput.value = '';
+        elements.newsletterBtn.classList.remove('loading');
+        elements.newsletterBtn.textContent = 'Subscribe';
+      }, 1500);
+    }
+
+    elements.newsletterBtn.addEventListener('click', handleNewsletterSubmit);
+    elements.newsletterInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleNewsletterSubmit(e);
+    });
+  }
+
+  // Enhanced interaction effects
+  function initializeInteractionEffects() {
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Enhanced button loading states
+    const buttons = utils.querySelectorAll('.btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        if (!this.classList.contains('no-loading')) {
+          const originalText = this.textContent;
+          this.style.pointerEvents = 'none';
+          this.textContent = 'Loading...';
+          
+          setTimeout(() => {
+            this.textContent = originalText;
+            this.style.pointerEvents = 'auto';
+          }, 800);
+        }
+      });
+    });
+
+    // Map embed loading state
+    const mapEmbed = utils.querySelector('.map-embed iframe');
+    if (mapEmbed) {
+      mapEmbed.style.opacity = '0.7';
+      mapEmbed.addEventListener('load', () => {
+        mapEmbed.style.opacity = '1';
+        mapEmbed.style.transition = 'opacity 0.5s ease';
+      });
+    }
+
+    // Emergency link confirmation
+    const emergencyLink = utils.querySelector('.emergency-link');
+    if (emergencyLink) {
+      emergencyLink.addEventListener('click', (e) => {
+        if (!confirm('You are about to call our 24/7 emergency line. Continue?')) {
+          e.preventDefault();
+        }
+      });
+    }
+  }
+
+  // Page load animations
+  function initializePageAnimations() {
+    // Set initial state for page load animation
+    document.body.style.opacity = '0';
+    document.body.style.transform = 'translateY(20px)';
+    document.body.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+
+    // Fade in on load
+    window.addEventListener('load', () => {
+      document.body.style.opacity = '1';
+      document.body.style.transform = 'translateY(0)';
+      
+      // Launch confetti after page load
+      setTimeout(launchConfetti, 600);
+    });
+  }
+
+  // Initialize all functionality
+  function init() {
+    // Core functionality
+    initializeYear();
+    initializeNavigation();
+    initializeActiveNavigation();
+    initializeContactForm();
+    initializeContactFormValidation();
+    
+    // Visual effects
+    initializeHeroCanvas();
+    initializeConfettiCanvas();
+    initializeScrollEffects();
+    initializeScrollReveal();
+    initializeCardTilt();
+    initializeLightbox();
+    initializeParallax();
+    
+    // Interactive components
+    initializeModals();
+    initializeChatbot();
+    initializeNewsletter();
+    initializeInteractionEffects();
+    initializePageAnimations();
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Global scope exposure for debugging
+  window.SerenityLiving = {
+    showToast,
+    launchConfetti,
+    utils
+  };
+
 })();
-
-
