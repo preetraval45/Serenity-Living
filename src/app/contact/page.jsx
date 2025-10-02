@@ -35,10 +35,10 @@ export default function ContactPage() {
 
       const result = await response.json()
 
-      if (response.ok) {
+      if (response.ok && result.success) {
         setSubmitStatus({
           type: 'success',
-          message: 'Thank you! Your message has been sent successfully. We\'ll contact you soon.'
+          message: result.message || 'Thank you! Your message has been sent successfully. We\'ll contact you soon.'
         })
         setFormData({
           name: '',
@@ -51,7 +51,7 @@ export default function ContactPage() {
       } else {
         setSubmitStatus({
           type: 'error',
-          message: 'There was an error sending your message. Please try again or call us directly.'
+          message: result.error || 'There was an error sending your message. Please try again or call us directly at (839) 329-6084.'
         })
       }
     } catch (error) {
