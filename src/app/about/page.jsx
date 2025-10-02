@@ -92,33 +92,33 @@ export default function AboutPage() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
-                className="bg-gradient-to-br from-accent-50 via-primary-50 to-warm-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border-2 border-accent-200 hover:border-accent-400"
+                className="bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border-2 border-primary-200 hover:border-primary-400"
               >
                 <div className="space-y-6">
                   <div className="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/70 transition-all duration-300 group cursor-pointer">
-                    <div className="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
                       <Clock className="text-white" size={24} />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 group-hover:text-accent-600 transition-colors duration-300">Opening Soon</h3>
+                      <h3 className="font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-300">Opening Soon</h3>
                       <p className="text-gray-600">Coming Soon</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/70 transition-all duration-300 group cursor-pointer">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
+                    <div className="w-12 h-12 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
                       <Users className="text-white" size={24} />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-300">32 Suites</h3>
+                      <h3 className="font-bold text-gray-900 group-hover:text-secondary-600 transition-colors duration-300">32 Suites</h3>
                       <p className="text-gray-600">24/7 Facility</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/70 transition-all duration-300 group cursor-pointer">
-                    <div className="w-12 h-12 bg-gradient-to-br from-warm-500 to-warm-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
+                    <div className="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
                       <MapPin className="text-white" size={24} />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 group-hover:text-warm-600 transition-colors duration-300">120 Rice Dr</h3>
+                      <h3 className="font-bold text-gray-900 group-hover:text-accent-600 transition-colors duration-300">120 Rice Dr</h3>
                       <p className="text-gray-600">Gilbert, SC 29054</p>
                     </div>
                   </div>

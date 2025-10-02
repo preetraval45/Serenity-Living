@@ -140,9 +140,9 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => {
                 const colors = [
-                  { bg: 'from-accent-50 to-accent-100', icon: 'bg-gradient-to-br from-accent-500 to-accent-600', hover: 'group-hover:text-accent-600', border: 'border-accent-200 hover:border-accent-400', dot: 'bg-accent-600' },
                   { bg: 'from-primary-50 to-primary-100', icon: 'bg-gradient-to-br from-primary-500 to-primary-600', hover: 'group-hover:text-primary-600', border: 'border-primary-200 hover:border-primary-400', dot: 'bg-primary-600' },
-                  { bg: 'from-warm-50 to-warm-100', icon: 'bg-gradient-to-br from-warm-500 to-warm-600', hover: 'group-hover:text-warm-600', border: 'border-warm-200 hover:border-warm-400', dot: 'bg-warm-600' }
+                  { bg: 'from-secondary-50 to-secondary-100', icon: 'bg-gradient-to-br from-secondary-500 to-secondary-600', hover: 'group-hover:text-secondary-600', border: 'border-secondary-200 hover:border-secondary-400', dot: 'bg-secondary-600' },
+                  { bg: 'from-accent-50 to-accent-100', icon: 'bg-gradient-to-br from-accent-500 to-accent-600', hover: 'group-hover:text-accent-600', border: 'border-accent-200 hover:border-accent-400', dot: 'bg-accent-600' }
                 ];
                 const colorScheme = colors[index % colors.length];
 
@@ -192,9 +192,9 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {levels.map((level, index) => {
                 const tierColors = [
-                  { bg: 'from-accent-50 to-accent-100', border: 'border-accent-300 hover:border-accent-500', badge: 'bg-gradient-to-r from-accent-500 to-accent-600', dot: 'bg-accent-600', title: 'group-hover:text-accent-600' },
                   { bg: 'from-primary-50 to-primary-100', border: 'border-primary-300 hover:border-primary-500', badge: 'bg-gradient-to-r from-primary-500 to-primary-600', dot: 'bg-primary-600', title: 'group-hover:text-primary-600' },
-                  { bg: 'from-warm-50 to-warm-100', border: 'border-warm-300 hover:border-warm-500', badge: 'bg-gradient-to-r from-warm-500 to-warm-600', dot: 'bg-warm-600', title: 'group-hover:text-warm-600' }
+                  { bg: 'from-secondary-50 to-secondary-100', border: 'border-secondary-300 hover:border-secondary-500', badge: 'bg-gradient-to-r from-secondary-500 to-secondary-600', dot: 'bg-secondary-600', title: 'group-hover:text-secondary-600' },
+                  { bg: 'from-accent-50 to-accent-100', border: 'border-accent-300 hover:border-accent-500', badge: 'bg-gradient-to-r from-accent-500 to-accent-600', dot: 'bg-accent-600', title: 'group-hover:text-accent-600' }
                 ];
                 const colorScheme = tierColors[index % tierColors.length];
 
@@ -331,9 +331,9 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.8 }}
-              className="bg-gradient-to-br from-accent-50 via-primary-50 to-warm-50 rounded-3xl p-8 md:p-12 text-center border-2 border-accent-200 shadow-xl hover:shadow-2xl transition-all duration-500"
+              className="bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 rounded-3xl p-8 md:p-12 text-center border-2 border-primary-200 shadow-xl hover:shadow-2xl transition-all duration-500"
             >
-              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary-600 via-accent-600 to-warm-600 bg-clip-text text-transparent mb-6">Ready to Learn More?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 bg-clip-text text-transparent mb-6">Ready to Learn More?</h2>
               <p className="text-xl text-gray-700 mb-8 leading-relaxed">
                 Schedule a personal tour to see our facilities and meet our caring team.
                 We'll help you find the perfect care solution for your loved ones.

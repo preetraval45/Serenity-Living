@@ -69,11 +69,11 @@ export default function HomePage() {
             className="max-w-7xl mx-auto"
           >
             <motion.div variants={itemVariants} className="text-center mb-16">
-              <div className="inline-flex items-center px-10 py-6 mb-8 rounded-2xl bg-gradient-to-r from-accent-50 via-primary-50 to-warm-50 border-2 border-accent-300 shadow-xl">
+              <div className="inline-flex items-center px-10 py-6 mb-8 rounded-2xl bg-gradient-to-r from-primary-50 via-secondary-50 to-accent-50 border-2 border-primary-300 shadow-xl">
                 <span className="mr-4 text-4xl">🚧</span>
                 <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary-700 to-accent-600 bg-clip-text text-transparent mb-1">OPENING SOON</div>
-                  <div className="text-sm md:text-base text-accent-700 font-semibold">Gilbert, South Carolina</div>
+                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent mb-1">OPENING SOON</div>
+                  <div className="text-sm md:text-base text-primary-700 font-semibold">Gilbert, South Carolina</div>
                 </div>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -112,12 +112,12 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto text-center"
           >
-            <motion.div variants={itemVariants} className="bg-gradient-to-r from-accent-50 via-primary-50 to-warm-50 border-2 border-accent-300 rounded-3xl p-10 shadow-2xl">
+            <motion.div variants={itemVariants} className="bg-gradient-to-r from-primary-50 via-secondary-50 to-accent-50 border-2 border-primary-300 rounded-3xl p-10 shadow-2xl">
               <div className="flex items-center justify-center mb-6">
                 <span className="text-6xl mr-4">🏗️</span>
                 <div className="text-center">
-                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary-700 via-accent-600 to-warm-600 bg-clip-text text-transparent mb-2">COMING SOON</h3>
-                  <div className="text-xl md:text-2xl text-accent-700 font-semibold">Gilbert, South Carolina</div>
+                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 bg-clip-text text-transparent mb-2">COMING SOON</h3>
+                  <div className="text-xl md:text-2xl text-primary-700 font-semibold">Gilbert, South Carolina</div>
                 </div>
               </div>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">

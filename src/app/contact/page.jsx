@@ -165,10 +165,10 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
               {contactInfo.map((info, index) => {
                 const colors = [
-                  { bg: 'from-accent-50 to-accent-100', icon: 'bg-gradient-to-br from-accent-500 to-accent-600', border: 'border-accent-200 hover:border-accent-400', title: 'group-hover:text-accent-600', button: 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700' },
                   { bg: 'from-primary-50 to-primary-100', icon: 'bg-gradient-to-br from-primary-500 to-primary-600', border: 'border-primary-200 hover:border-primary-400', title: 'group-hover:text-primary-600', button: 'bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700' },
-                  { bg: 'from-warm-50 to-warm-100', icon: 'bg-gradient-to-br from-warm-500 to-warm-600', border: 'border-warm-200 hover:border-warm-400', title: 'group-hover:text-warm-600', button: 'bg-gradient-to-r from-warm-500 to-warm-600 hover:from-warm-600 hover:to-warm-700' },
-                  { bg: 'from-coral-50 to-coral-100', icon: 'bg-gradient-to-br from-coral-400 to-coral-500', border: 'border-coral-200 hover:border-coral-400', title: 'group-hover:text-coral-500', button: 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700' }
+                  { bg: 'from-secondary-50 to-secondary-100', icon: 'bg-gradient-to-br from-secondary-500 to-secondary-600', border: 'border-secondary-200 hover:border-secondary-400', title: 'group-hover:text-secondary-600', button: 'bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700' },
+                  { bg: 'from-accent-50 to-accent-100', icon: 'bg-gradient-to-br from-accent-500 to-accent-600', border: 'border-accent-200 hover:border-accent-400', title: 'group-hover:text-accent-600', button: 'bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700' },
+                  { bg: 'from-warm-50 to-warm-100', icon: 'bg-gradient-to-br from-warm-500 to-warm-600', border: 'border-warm-200 hover:border-warm-400', title: 'group-hover:text-warm-600', button: 'bg-gradient-to-r from-warm-500 to-warm-600 hover:from-warm-600 hover:to-warm-700' }
                 ];
                 const colorScheme = colors[index % colors.length];
 
