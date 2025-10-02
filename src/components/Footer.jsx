@@ -31,14 +31,14 @@ export default function Footer() {
         onClick={() => {
           window.scrollTo({ top: 0, behavior: 'smooth' })
         }}
-        className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 bg-primary-600 hover:bg-primary-700 text-white p-2 sm:p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40"
+        className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white p-2 sm:p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40"
         aria-label="Back to top"
       >
         <ArrowUp className="h-5 w-5 sm:h-6 sm:w-6" />
       </button>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white">
+      <footer className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white">
         {/* Main Footer Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -66,14 +66,14 @@ export default function Footer() {
               <div className="flex space-x-4">
                 <a
                   href="https://facebook.com/serenitylivingoflexington"
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition-colors duration-300"
+                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-primary-500 hover:to-primary-600 transition-all duration-300 transform hover:scale-110"
                   aria-label="Facebook"
                 >
                   <Facebook size={20} />
                 </a>
                 <a
                   href="https://www.instagram.com/serenity_living_2025"
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition-colors duration-300"
+                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-accent-500 hover:to-accent-600 transition-all duration-300 transform hover:scale-110"
                   aria-label="Instagram"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -82,7 +82,7 @@ export default function Footer() {
                 </a>
                 <a
                   href="mailto:serenitylivingoflexington@gmail.com"
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition-colors duration-300"
+                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-secondary-500 hover:to-secondary-600 transition-all duration-300 transform hover:scale-110"
                   aria-label="Email"
                 >
                   <Mail size={20} />

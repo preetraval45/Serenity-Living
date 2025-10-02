@@ -22,15 +22,15 @@ export default function Navigation() {
   return (
     <>
       {/* Top Info Bar */}
-      <div className="bg-primary-600 text-white py-2 px-4 text-xs sm:text-sm">
+      <div className="bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 text-white py-2 px-4 text-xs sm:text-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-3 sm:space-x-6">
-            <div className="flex items-center space-x-1 sm:space-x-2">
+            <div className="flex items-center space-x-1 sm:space-x-2 hover:scale-105 transition-transform">
               <Phone size={14} className="sm:w-4 sm:h-4" />
               <span className="hidden sm:inline">(839) 329-6084</span>
               <span className="sm:hidden">Call</span>
             </div>
-            <div className="hidden sm:flex items-center space-x-2">
+            <div className="hidden sm:flex items-center space-x-2 hover:scale-105 transition-transform">
               <Mail size={16} />
               <span className="hidden lg:inline">serenitylivingoflexington@gmail.com</span>
               <span className="lg:hidden">Email</span>
@@ -83,7 +83,7 @@ export default function Navigation() {
               <div className="flex items-center space-x-2 ml-4 lg:ml-6">
                 <Link
                   href="/book-tour"
-                  className="bg-primary-600 text-white px-4 lg:px-6 py-2 rounded-full hover:bg-primary-700 transition-colors duration-200 font-medium text-sm"
+                  className="bg-gradient-to-r from-accent-500 to-accent-600 text-white px-4 lg:px-6 py-2 rounded-full hover:from-accent-600 hover:to-accent-700 transition-all duration-200 font-medium text-sm shadow-md hover:shadow-lg"
                 >
                   Book a Tour
                 </Link>

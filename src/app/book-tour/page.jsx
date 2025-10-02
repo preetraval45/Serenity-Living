@@ -101,7 +101,7 @@ export default function BookTourPage() {
             className="text-center mb-12"
           >
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Schedule Your <span className="text-primary-600">Personal Tour</span>
+              Schedule Your <span className="bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 bg-clip-text text-transparent">Personal Tour</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Experience our beautiful community firsthand. We&apos;d love to show you around and answer any questions you may have.
@@ -119,7 +119,7 @@ export default function BookTourPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">What to Expect</h2>
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
                     <Clock className="text-primary-600" size={24} />
                   </div>
                   <div>
@@ -297,7 +297,7 @@ export default function BookTourPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-primary-600 text-white py-4 rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-accent-500 to-accent-600 text-white py-4 rounded-xl font-semibold hover:from-accent-600 hover:to-accent-700 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
                 >
                   {isSubmitting ? 'Submitting...' : 'Schedule My Tour'}
                 </button>

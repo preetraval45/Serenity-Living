@@ -31,9 +31,9 @@ export default function GalleryPage() {
             className="max-w-4xl mx-auto text-center"
           >
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Our Beautiful <span className="text-primary-600">Gallery</span>
+              Our Beautiful <span className="bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 bg-clip-text text-transparent">Gallery</span>
             </h1>
-            <div className="w-32 h-1 bg-gradient-to-r from-primary-500 to-primary-600 mx-auto mb-8 rounded-full"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 mx-auto mb-8 rounded-full"></div>
             <p className="text-xl text-gray-600 leading-relaxed">
               Take a virtual tour of our facilities and see why Serenity Living is the perfect 
               place to call home. From our elegant common areas to comfortable living spaces, 
