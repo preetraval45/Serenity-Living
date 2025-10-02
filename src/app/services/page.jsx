@@ -142,6 +142,9 @@ export default function ServicesPage() {
                 const colors = [
                   { bg: 'from-primary-50 to-primary-100', icon: 'bg-gradient-to-br from-primary-500 to-primary-600', hover: 'group-hover:text-primary-600', border: 'border-primary-200 hover:border-primary-400', dot: 'bg-primary-600' },
                   { bg: 'from-secondary-50 to-secondary-100', icon: 'bg-gradient-to-br from-secondary-500 to-secondary-600', hover: 'group-hover:text-secondary-600', border: 'border-secondary-200 hover:border-secondary-400', dot: 'bg-secondary-600' },
+                  { bg: 'from-accent-50 to-accent-100', icon: 'bg-gradient-to-br from-accent-500 to-accent-600', hover: 'group-hover:text-accent-600', border: 'border-accent-200 hover:border-accent-400', dot: 'bg-accent-600' },
+                  { bg: 'from-warm-50 to-warm-100', icon: 'bg-gradient-to-br from-warm-500 to-warm-600', hover: 'group-hover:text-warm-600', border: 'border-warm-200 hover:border-warm-400', dot: 'bg-warm-600' },
+                  { bg: 'from-secondary-50 to-secondary-100', icon: 'bg-gradient-to-br from-secondary-500 to-secondary-600', hover: 'group-hover:text-secondary-600', border: 'border-secondary-200 hover:border-secondary-400', dot: 'bg-secondary-600' },
                   { bg: 'from-accent-50 to-accent-100', icon: 'bg-gradient-to-br from-accent-500 to-accent-600', hover: 'group-hover:text-accent-600', border: 'border-accent-200 hover:border-accent-400', dot: 'bg-accent-600' }
                 ];
                 const colorScheme = colors[index % colors.length];
@@ -193,8 +196,8 @@ export default function ServicesPage() {
               {levels.map((level, index) => {
                 const tierColors = [
                   { bg: 'from-primary-50 to-primary-100', border: 'border-primary-300 hover:border-primary-500', badge: 'bg-gradient-to-r from-primary-500 to-primary-600', dot: 'bg-primary-600', title: 'group-hover:text-primary-600' },
-                  { bg: 'from-secondary-50 to-secondary-100', border: 'border-secondary-300 hover:border-secondary-500', badge: 'bg-gradient-to-r from-secondary-500 to-secondary-600', dot: 'bg-secondary-600', title: 'group-hover:text-secondary-600' },
-                  { bg: 'from-accent-50 to-accent-100', border: 'border-accent-300 hover:border-accent-500', badge: 'bg-gradient-to-r from-accent-500 to-accent-600', dot: 'bg-accent-600', title: 'group-hover:text-accent-600' }
+                  { bg: 'from-accent-50 to-accent-100', border: 'border-accent-300 hover:border-accent-500', badge: 'bg-gradient-to-r from-accent-500 to-accent-600', dot: 'bg-accent-600', title: 'group-hover:text-accent-600' },
+                  { bg: 'from-warm-50 to-warm-100', border: 'border-warm-300 hover:border-warm-500', badge: 'bg-gradient-to-r from-warm-500 to-warm-600', dot: 'bg-warm-600', title: 'group-hover:text-warm-600' }
                 ];
                 const colorScheme = tierColors[index % tierColors.length];
 
@@ -297,7 +300,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.8 }}
-                className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl shadow-lg border-2 border-primary-200 p-6"
+                className="bg-gradient-to-br from-secondary-50 to-secondary-100 rounded-2xl shadow-lg border-2 border-secondary-200 p-6"
               >
                 <h3 className="text-lg font-bold text-gray-900 mb-3">Standard Amenities</h3>
                 <ul className="space-y-2 text-gray-600">
@@ -312,7 +315,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.9 }}
-                className="bg-gradient-to-br from-accent-50 to-accent-100 rounded-2xl shadow-lg border-2 border-accent-200 p-6"
+                className="bg-gradient-to-br from-warm-50 to-warm-100 rounded-2xl shadow-lg border-2 border-warm-200 p-6"
               >
                 <h3 className="text-lg font-bold text-gray-900 mb-3">Transparent Billing & Safety</h3>
                 <ul className="space-y-2 text-gray-600">
