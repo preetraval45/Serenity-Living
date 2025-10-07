@@ -1,7 +1,202 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { MapPin, Phone, Mail, Clock, ExternalLink } from 'lucide-react'
+import { MapPin, Phone, Mail, Clock, ExternalLink, X } from 'lucide-react'
+
+function TourBookingModal({ onClose }) {
+  const [tourData, setTourData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    date: '',
+    time: '',
+    message: ''
+  })
+
+  const handleTourSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      const response = await fetch('/api/book-tour', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tourData),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        alert(data.message)
+        onClose()
+      } else {
+        alert(data.message || 'Something went wrong. Please try again.')
+      }
+    } catch (error) {
+      console.error('Tour booking error:', error)
+      alert('Unable to book your tour. Please try again or call us directly at (839) 329-6084.')
+    }
+  }
+
+  const handleTourInputChange = (e) => {
+    const { name, value } = e.target
+    setTourData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-2xl font-bold text-gray-900">Schedule a Tour</h3>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+
+        <form onSubmit={handleTourSubmit}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+                First Name *
+              </label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                required
+                value={tourData.firstName}
+                onChange={handleTourInputChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+              />
+            </div>
+            <div>
+              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+                Last Name *
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                required
+                value={tourData.lastName}
+                onChange={handleTourInputChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                Email *
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                value={tourData.email}
+                onChange={handleTourInputChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+              />
+            </div>
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                Phone *
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+                value={tourData.phone}
+                onChange={handleTourInputChange}
+                placeholder="(555) 555-5555"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">
+                Preferred Date *
+              </label>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                required
+                value={tourData.date}
+                onChange={handleTourInputChange}
+                min={new Date().toISOString().split('T')[0]}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+              />
+            </div>
+            <div>
+              <label htmlFor="time" className="block text-sm font-medium text-gray-700 mb-2">
+                Preferred Time *
+              </label>
+              <select
+                id="time"
+                name="time"
+                required
+                value={tourData.time}
+                onChange={handleTourInputChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+              >
+                <option value="">Select a time...</option>
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <option value="4:00 PM">4:00 PM</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+              Message (optional)
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows={3}
+              value={tourData.message}
+              onChange={handleTourInputChange}
+              placeholder="Any specific questions or requirements?"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-y"
+            />
+          </div>
+
+          <div className="flex gap-4">
+            <button type="submit" className="btn btn-primary flex-1">
+              Book Tour
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="btn btn-outline flex-1"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
 
 export default function Contact() {
   const [isVisible, setIsVisible] = useState(false)
@@ -33,21 +228,38 @@ export default function Contact() {
     return () => observer.disconnect()
   }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Handle form submission
-    console.log('Form submitted:', formData)
-    // Show success message
-    alert('Thank you! We\'ll be in touch soon.')
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      inquiry: '',
-      message: '',
-      consent: false
-    })
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        alert(data.message)
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          inquiry: '',
+          message: '',
+          consent: false
+        })
+      } else {
+        alert(data.message || 'Something went wrong. Please try again.')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      alert('Unable to submit your message. Please try again or call us directly at (839) 329-6084.')
+    }
   }
 
   const handleInputChange = (e) => {
@@ -313,28 +525,8 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Simple Tour Modal */}
-      {showTourModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Schedule a Tour</h3>
-            <p className="text-gray-600 mb-6">
-              Call us at <a href="tel:+18393296084" className="text-primary-600 font-semibold">(839) 329-6084</a> to schedule your personalized tour of our facilities.
-            </p>
-            <div className="flex gap-4">
-              <a href="tel:+18393296084" className="btn btn-primary flex-1">
-                Call Now
-              </a>
-              <button
-                onClick={() => setShowTourModal(false)}
-                className="btn btn-outline flex-1"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Tour Booking Modal */}
+      {showTourModal && <TourBookingModal onClose={() => setShowTourModal(false)} />}
     </>
   )
 }
