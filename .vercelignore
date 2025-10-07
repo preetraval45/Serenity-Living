@@ -1,0 +1,37 @@
+# Ignore backend folder
+backend/
+
+# Ignore test files
+test-neon-connection.js
+setup-neon-now.js
+
+# Ignore local environment files
+.env.local
+.env*.local
+
+# Ignore documentation
+*.md
+!README.md
+
+# Ignore Docker files
+Dockerfile
+docker-compose.yml
+nginx/
+
+# Ignore scripts
+scripts/init-db.js
+scripts/init-production-db.js
+
+# Ignore start scripts
+start.bat
+start.sh
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
