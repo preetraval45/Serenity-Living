@@ -16,22 +16,80 @@ const poppins = Poppins({
 })
 
 export const metadata = {
-  title: 'Serenity Living — Premier Senior Living Community | Gilbert, SC',
-  description: 'Experience compassionate, dignified care at Serenity Living. Our senior living community offers assisted living, memory care, and skilled nursing services in Gilbert, SC.',
-  keywords: 'senior living, assisted living, memory care, nursing home, Gilbert SC, Lexington SC, elderly care, rehabilitation, respite care',
+  metadataBase: new URL('https://serenitylivingoflexington.com'),
+  title: {
+    default: 'Serenity Living of Lexington — Premier Senior Living Community in Gilbert, SC',
+    template: '%s | Serenity Living of Lexington'
+  },
+  description: 'Experience compassionate, dignified care at Serenity Living of Lexington. Our senior living community offers assisted living, memory care, and skilled nursing services in Gilbert, SC. 24/7 care, rehabilitation, and respite services available.',
+  keywords: ['senior living Gilbert SC', 'assisted living Lexington SC', 'memory care South Carolina', 'nursing home Gilbert', 'elderly care SC', 'rehabilitation services', 'respite care', 'senior community Lexington', 'skilled nursing Gilbert SC', 'Serenity Living'],
   authors: [{ name: 'Serenity Living of Lexington' }],
+  creator: 'Serenity Living of Lexington',
+  publisher: 'Serenity Living of Lexington',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
-    title: 'Serenity Living — Premier Senior Living Community',
-    description: 'Experience compassionate, dignified care at Serenity Living. Our senior living community offers assisted living, memory care, and skilled nursing services in Gilbert, SC.',
     type: 'website',
-    url: 'https://theserenityliving.com',
-    images: ['/logo.jpg'],
+    locale: 'en_US',
+    url: 'https://serenitylivingoflexington.com',
+    siteName: 'Serenity Living of Lexington',
+    title: 'Serenity Living of Lexington — Premier Senior Living Community',
+    description: 'Experience compassionate, dignified care at Serenity Living. Assisted living, memory care, and skilled nursing in Gilbert, SC.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Serenity Living of Lexington - Senior Living Community',
+      }
+    ],
   },
   twitter: {
     card: 'summary_large_image',
+    title: 'Serenity Living of Lexington — Premier Senior Living',
+    description: 'Compassionate senior living, memory care, and skilled nursing in Gilbert, SC.',
+    images: ['/og-image.jpg'],
+    creator: '@serenitylex',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   icons: {
-    icon: '/logo.jpg',
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      {
+        rel: 'android-chrome-192x192',
+        url: '/android-chrome-192x192.png',
+      },
+      {
+        rel: 'android-chrome-512x512',
+        url: '/android-chrome-512x512.png',
+      },
+    ],
+  },
+  verification: {
+    google: 'google-site-verification-code-here',
+  },
+  alternates: {
+    canonical: 'https://serenitylivingoflexington.com',
   },
 }
 
@@ -41,6 +99,11 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#2563eb" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Serenity Living" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -49,9 +112,9 @@ export default function RootLayout({ children }) {
               "@type": "SeniorCareServices",
               "name": "Serenity Living of Lexington",
               "description": "Premier senior living and nursing community providing compassionate assisted living, memory care, skilled nursing, and rehabilitation services.",
-              "url": "https://theserenityliving.com",
-              "logo": "https://theserenityliving.com/logo.jpg",
-              "image": "https://theserenityliving.com/logo.jpg",
+              "url": "https://serenitylivingoflexington.com",
+              "logo": "https://serenitylivingoflexington.com/logo.jpg",
+              "image": "https://serenitylivingoflexington.com/og-image.jpg",
               "telephone": "+1-839-329-6084",
               "email": "serenitylivingoflexington@gmail.com",
               "address": {
