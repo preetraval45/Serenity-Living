@@ -191,6 +191,9 @@ export default function Footer() {
                 Accessibility
               </Link>
             </div>
+            <div className="text-center mt-4 text-sm text-gray-500">
+              Designed, Developed & Maintained by <span className="text-primary-400 font-medium">Preet Raval</span>
+            </div>
           </div>
         </div>
       </footer>
