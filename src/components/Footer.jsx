@@ -191,11 +191,24 @@ export default function Footer() {
         <div className="border-t border-gray-800">
           <div className="px-4 py-6 mx-auto max-w-7xl">
             <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
-              <div className="flex items-center space-x-2 text-gray-400">
-                <span>
-                  &copy; {currentYear} Serenity Living of Lexington. All rights
-                  reserved.
-                </span>
+              <div className="flex flex-col items-center md:items-start space-y-2">
+                <div className="flex items-center space-x-2 text-gray-400">
+                  <span>
+                    &copy; {currentYear} Serenity Living of Lexington. All rights
+                    reserved.
+                  </span>
+                </div>
+                <div className="text-sm text-gray-400">
+                  @ Design, Development & Maintenance by{" "}
+                  <a
+                    href="https://www.linkedin.com/in/preet-raval-5a5807206/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold transition-colors duration-300 text-primary-400 hover:text-primary-300 hover:underline"
+                  >
+                    Preet Raval
+                  </a>
+                </div>
               </div>
               <div className="flex items-center space-x-2 text-gray-400">
                 <span>Made with</span>
@@ -222,17 +235,6 @@ export default function Footer() {
               >
                 Accessibility
               </Link>
-            </div>
-            <div className="mt-6 text-sm text-center text-gray-400">
-              @ Design, Development & Maintenance by{" "}
-              <a
-                href="https://www.linkedin.com/in/preet-raval-5a5807206/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold transition-colors duration-300 text-primary-400 hover:text-primary-300 hover:underline"
-              >
-                Preet Raval
-              </a>
             </div>
           </div>
         </div>
