@@ -63,8 +63,8 @@ export default function Gallery() {
     },
     {
       src: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop&crop=center',
-      alt: 'Memory care unit design concept',
-      caption: 'Specialized Memory Care — Secure, comforting environments designed specifically for residents with memory-related conditions and their families.'
+      alt: 'Rehabilitation center design concept',
+      caption: 'Rehabilitation Center — State-of-the-art therapy facilities with advanced equipment to help residents achieve their highest level of independence.'
     },
     {
       src: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=800&h=600&fit=crop&crop=center',

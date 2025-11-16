@@ -34,7 +34,7 @@ export default function AIAssistant() {
     },
     {
       question: "What services do you offer?",
-      answer: "Serenity Living offers comprehensive senior care services including:\n• Assisted Living with 24/7 care\n• Memory Care specialized programs\n• Personal Care services\n• Rehabilitation services\n• Wellness and activity programs\n• Restaurant-style dining\n• Housekeeping and maintenance\n\nWhat specific service interests you most?"
+      answer: "Serenity Living offers comprehensive senior care services including:\n• Assisted Living with 24/7 care\n• Skilled Nursing services\n• Respite Care programs\n• Rehabilitation & Therapy services\n• Wellness and activity programs\n• Restaurant-style dining\n• Housekeeping and maintenance\n\nWhat specific service interests you most?"
     },
     {
       question: "Where are you located?",
@@ -115,8 +115,8 @@ export default function AIAssistant() {
       return "We understand healthcare financing can be complex! 💳 We'll work with:\n• Private pay options\n• Long-term care insurance\n• Veterans benefits (for qualifying veterans)\n• We're exploring Medicare and Medicaid acceptance\n\nOur admissions team specializes in helping families understand their options and find the best financial solution. They can review your specific situation and insurance benefits!"
     }
 
-    if (message.includes('memory') || message.includes('alzheimer') || message.includes('dementia') || message.includes('cognitive')) {
-      return "We'll have specialized memory care services! 🧠💙 Our memory care will feature:\n• Secure, specially designed environment\n• Trained memory care specialists\n• Structured daily routines and activities\n• Family support and education programs\n• Safe outdoor spaces for walking\n• Person-centered care approaches\n\nMemory care requires special expertise, and our team will be specially trained to provide compassionate, dignified care for residents with cognitive challenges."
+    if (message.includes('therapy') || message.includes('rehabilitation') || message.includes('physical therapy') || message.includes('occupational')) {
+      return "We offer comprehensive rehabilitation services! 💪 Our therapy programs include:\n• Physical therapy with state-of-the-art equipment\n• Occupational therapy for daily living skills\n• Speech therapy for communication and swallowing\n• Post-surgical and stroke recovery programs\n• Medicare Part A and B accepted\n• Licensed therapists on-site\n\nOur rehabilitation center is designed to help residents achieve their highest level of independence!"
     }
 
     if (message.includes('pet') || message.includes('dog') || message.includes('cat') || message.includes('animal')) {

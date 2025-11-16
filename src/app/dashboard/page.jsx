@@ -229,8 +229,8 @@ export default function DashboardPage() {
                   <h4 className="font-semibold text-gray-900 mb-2">Facility Features</h4>
                   <ul className="text-sm text-gray-600 space-y-1">
                     <li>• Assisted Living Suites</li>
-                    <li>• Memory Care Units</li>
                     <li>• Skilled Nursing Care</li>
+                    <li>• Respite Care Programs</li>
                     <li>• Rehabilitation Services</li>
                     <li>• Beautiful Common Areas</li>
                   </ul>

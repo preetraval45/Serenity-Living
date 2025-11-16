@@ -27,9 +27,9 @@ export default function About() {
   const features = [
     'Licensed, experienced caregivers on site 24/7 with 8:1 resident-to-staff ratio',
     'Personalized care plans and medication management by registered nurses',
-    'Secure, 5-acre campus with specialized memory care wing',
+    'Secure, 5-acre campus with beautifully appointed apartments and suites',
     'Award-winning culinary program with dietitian-approved menus',
-    '120+ monthly activitiesitness classes, arts, music therapy, and local outings',
+    '120+ monthly activities—fitness classes, arts, music therapy, and local outings',
     'Family portal app for real-time updates and communication',
     'On-site physical therapy, occupational therapy, and speech therapy',
     'Beauty salon, barber shop, and library with over 3,000 books',
@@ -53,7 +53,7 @@ export default function About() {
             About Serenity Living
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Serenity Living is Gilbert's premier senior living community, featuring 120 beautifully appointed apartments and suites across our 5-acre campus. With over 25 years of combined experience, our dedicated team creates a warm, welcoming environment where residents thrive.
+            Serenity Living is Gilbert's premier senior living community, featuring 120 beautifully appointed apartments and suites across our 5-acre campus. With more than 20 years of experience in the industry, our organization is supported by a core team of professionals who continue to practice medicine, ensuring that our work remains grounded in real-world clinical expertise.
           </p>
         </div>
 

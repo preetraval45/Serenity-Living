@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Home, Heart, Brain, RotateCcw, Dumbbell, Utensils } from 'lucide-react'
+import { Home, Heart, RotateCcw, Dumbbell, Utensils } from 'lucide-react'
 
 export default function Services() {
   const [isVisible, setIsVisible] = useState(false)
@@ -54,21 +54,6 @@ export default function Services() {
       bgColor: 'bg-secondary-50',
       iconColor: 'text-secondary-600',
       borderColor: 'border-secondary-200'
-    },
-    {
-      icon: Brain,
-      title: 'Memory Care',
-      description: 'Our secure 30-bed memory care neighborhood uses evidence-based approaches to support residents with Alzheimer&apos;s and dementia.',
-      points: [
-        'Structured daily routines with cognitive engagement',
-        'Secure, wandering-friendly environment',
-        'Specialized staff trained in dementia care',
-        'Sensory gardens and therapeutic activities',
-        'Family education and support groups'
-      ],
-      bgColor: 'bg-accent-50',
-      iconColor: 'text-accent-600',
-      borderColor: 'border-accent-200'
     },
     {
       icon: RotateCcw,
