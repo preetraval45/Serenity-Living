@@ -226,7 +226,7 @@ export default function Footer() {
             <div className="mt-4 text-sm text-center text-gray-500">
               Designed, Developed & Maintained by{" "}
               <a
-                href="https://www.linkedin.com/in/preet-raval"
+                href="https://www.linkedin.com/in/preet-raval-5a5807206/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium transition-colors duration-300 text-primary-400 hover:text-primary-300 hover:underline"
