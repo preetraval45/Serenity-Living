@@ -223,13 +223,13 @@ export default function Footer() {
                 Accessibility
               </Link>
             </div>
-            <div className="mt-4 text-sm text-center text-gray-500">
-              Designed, Developed & Maintained by{" "}
+            <div className="mt-6 text-sm text-center text-gray-400">
+              @ Design, Development & Maintenance by{" "}
               <a
                 href="https://www.linkedin.com/in/preet-raval-5a5807206/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium transition-colors duration-300 text-primary-400 hover:text-primary-300 hover:underline"
+                className="font-semibold transition-colors duration-300 text-primary-400 hover:text-primary-300 hover:underline"
               >
                 Preet Raval
               </a>
