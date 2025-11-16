@@ -1,11 +1,41 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python:*)",
-      "mcp__ide__getDiagnostics",
-      "Bash(git restore:*)"
+      "Bash(docker-compose:*)",
+      "Bash(start \"Docker Desktop\" \"C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe\")",
+      "Bash(timeout:*)",
+      "Bash(start.bat)",
+      "Bash(cmd:*)",
+      "Bash(docker:*)",
+      "Bash(npm run dev:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(npm install:*)",
+      "Bash(curl:*)",
+      "Bash(copy:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm start)",
+      "Bash(taskkill:*)",
+      "Bash(pkill:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(vercel)",
+      "Bash(vercel:*)",
+      "Bash(dir:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nUpdate Serenity Living website with content changes\n\n- Change ''Independent Living'' to ''Assisted Living'' throughout site\n- Remove ''semi-private'' from room descriptions\n- Remove Tier 4 Care section completely\n- Remove all pet-related content from Additional Services\n- Add new amenities: 24/7 security, furnished suites, free internet/TV, transparent billing, nurse call system\n- Change ''Visit Our Future Home'' to ''Visit Your Future Home''\n- Remove Investment and Partnership inquiry options, add Employment option\n- Update color palette to match brand colors (blues, coral, grays)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nUpdate color palette across entire website\n\n- Updated tailwind config with new brand colors (blues, coral, grays)\n- Updated Services page with consistent color scheme\n- Updated Contact page with proper color balance\n- Updated Home page (Coming Soon sections) with new palette\n- Updated About page with new brand colors\n- Ensured primary (dark blue), secondary (medium blue), accent (coral), and warm colors are used evenly\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)",
+      "Bash(node:*)",
+      "Bash(del:*)",
+      "Bash(psql:*)",
+      "Bash(openssl rand:*)",
+      "Bash(git rm:*)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "additionalDirectories": [
+      "C:\\Users\\raval\\OneDrive - University of North Carolina at Charlotte\\Desktop"
+    ]
   }
 }

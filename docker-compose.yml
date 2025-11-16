@@ -1,0 +1,95 @@
+services:
+  # Nginx Reverse Proxy
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - "7080:80"
+    depends_on:
+      - frontend
+    networks:
+      - serenity-network
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl  # For SSL certificates
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: serenity_living
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "7001:5432"
+    networks:
+      - serenity-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # FastAPI Backend
+  backend:
+    build: ./backend
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/serenity_living
+      - JWT_SECRET=your-secret-key-here-make-it-long-and-secure
+    ports:
+      - "7004:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - serenity-network
+    volumes:
+      - ./backend:/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Next.js Frontend
+  frontend:
+    build: .
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/serenity_living
+      - NEXTAUTH_URL=http://localhost:7080
+      - NEXTAUTH_SECRET=serenity-living-nextauth-secret-key-2024-production
+      - NEXT_PUBLIC_API_URL=http://localhost:7080/api
+    ports:
+      - "7003:3000"
+    depends_on:
+      - postgres
+    networks:
+      - serenity-network
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+
+  # Redis Cache (optional, for session storage)
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "7002:6379"
+    networks:
+      - serenity-network
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  serenity-network:
+    driver: bridge

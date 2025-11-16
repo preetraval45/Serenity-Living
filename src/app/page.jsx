@@ -35,7 +35,7 @@ export default function HomePage() {
     {
       icon: Heart,
       title: "Compassionate Care",
-      description: "We are new to this field but have a genuine feeling to do noble work for senior people"
+      description: "We have over 20 years of experience in senior care, bringing deep expertise and genuine compassion to serving our community"
     },
     {
       icon: Users,
@@ -80,7 +80,7 @@ export default function HomePage() {
                 Why Choose Serenity Living?
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                We're new to this field but bring fresh dedication and genuine care for our senior community.
+                We have 20 years of experience in senior care, bringing proven expertise and genuine compassion to our community.
                 Currently preparing to welcome our first residents!
               </p>
             </motion.div>
@@ -121,9 +121,9 @@ export default function HomePage() {
                 </div>
               </div>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                We're a brand new facility with fresh energy and commitment! Our premier assisted living facility
+                Our brand new state-of-the-art facility is backed by 20 years of senior care expertise! Our premier assisted living facility
                 is being prepared to provide exceptional care and comfort from day one. Join our founding
-                community and discover your new home with people who truly care about senior living.
+                community and discover your new home with experienced professionals who truly care about senior living.
               </p>
             </motion.div>
           </motion.div>

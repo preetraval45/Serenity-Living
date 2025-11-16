@@ -12,7 +12,7 @@ export default function AboutPage() {
     {
       icon: Heart,
       title: "Compassionate Care",
-      description: "We are new to this field but have a genuine feeling to do noble work for senior people."
+      description: "We have over 20 years of experience in senior care, bringing deep expertise and genuine compassion to every aspect of our service."
     },
     {
       icon: Users,
@@ -26,8 +26,8 @@ export default function AboutPage() {
     },
     {
       icon: Award,
-      title: "Fresh Dedication",
-      description: "Though new to this field, we bring fresh energy and commitment to senior care."
+      title: "Proven Excellence",
+      description: "Two decades of dedicated service and continuous improvement in senior care excellence."
     }
   ]
 
