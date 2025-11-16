@@ -225,7 +225,14 @@ export default function Footer() {
             </div>
             <div className="mt-4 text-sm text-center text-gray-500">
               Designed, Developed & Maintained by{" "}
-              <span className="font-medium text-primary-400">Preet Raval</span>
+              <a
+                href="https://www.linkedin.com/in/preet-raval"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium transition-colors duration-300 text-primary-400 hover:text-primary-300 hover:underline"
+              >
+                Preet Raval
+              </a>
             </div>
           </div>
         </div>
