@@ -8,11 +8,40 @@ export default function AdminSubmissions() {
   const [tourBookings, setTourBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('contact');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState('');
   const router = useRouter();
 
   useEffect(() => {
-    fetchSubmissions();
+    // Check if already authenticated
+    const auth = sessionStorage.getItem('admin_auth');
+    if (auth === 'true') {
+      setIsAuthenticated(true);
+      fetchSubmissions();
+    } else {
+      setLoading(false);
+    }
   }, []);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // Simple password check - in production, use proper authentication
+    if (password === 'Serenity2025!') {
+      sessionStorage.setItem('admin_auth', 'true');
+      setIsAuthenticated(true);
+      setAuthError('');
+      fetchSubmissions();
+    } else {
+      setAuthError('Incorrect password. Please try again.');
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('admin_auth');
+    setIsAuthenticated(false);
+    setPassword('');
+  };
 
   const fetchSubmissions = async () => {
     try {
@@ -35,6 +64,41 @@ export default function AdminSubmissions() {
     }
   };
 
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="max-w-md w-full bg-white rounded-lg shadow-xl p-8">
+          <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">Admin Login</h1>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                placeholder="Enter admin password"
+                required
+              />
+            </div>
+            {authError && (
+              <div className="text-red-600 text-sm">{authError}</div>
+            )}
+            <button
+              type="submit"
+              className="w-full bg-primary-600 text-white py-2 rounded-lg hover:bg-primary-700 transition-colors"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -55,19 +119,27 @@ export default function AdminSubmissions() {
             <h1 className="text-3xl font-bold text-gray-900">Form Submissions</h1>
             <p className="mt-2 text-gray-600">View all contact forms and tour booking requests</p>
           </div>
-          <button
-            onClick={() => {
-              setLoading(true);
-              fetchSubmissions();
-            }}
-            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
-              <path d="M21 3v5h-5"></path>
-            </svg>
-            Refresh
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                setLoading(true);
+                fetchSubmissions();
+              }}
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+                <path d="M21 3v5h-5"></path>
+              </svg>
+              Refresh
+            </button>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {/* Tabs */}

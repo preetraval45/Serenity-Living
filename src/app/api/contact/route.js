@@ -15,6 +15,15 @@ export async function POST(request) {
       )
     }
 
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid email address' },
+        { status: 400 }
+      )
+    }
+
     // Save to database
     await query(
       `INSERT INTO contact_submissions (name, email, phone, inquiry, message)

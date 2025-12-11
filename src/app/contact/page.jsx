@@ -65,7 +65,7 @@ export default function ContactPage() {
         setSubmitStatus({
           type: "error",
           message:
-            result.error ||
+            result.message ||
             "There was an error sending your message. Please try again or call us directly at (839) 329-6084.",
         });
       }

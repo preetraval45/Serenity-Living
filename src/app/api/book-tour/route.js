@@ -15,6 +15,26 @@ export async function POST(request) {
       )
     }
 
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid email address' },
+        { status: 400 }
+      )
+    }
+
+    // Validate date is not in the past
+    const selectedDate = new Date(date)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    if (selectedDate < today) {
+      return NextResponse.json(
+        { success: false, message: 'Tour date cannot be in the past' },
+        { status: 400 }
+      )
+    }
+
     // Save to database
     await query(
       `INSERT INTO tour_bookings (first_name, last_name, email, phone, preferred_date, preferred_time, message)

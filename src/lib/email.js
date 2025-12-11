@@ -7,13 +7,15 @@ function createTransporter() {
     // Remove any spaces from the password (Gmail app passwords shouldn't have spaces)
     const cleanPassword = process.env.EMAIL_SERVER_PASSWORD.replace(/\s+/g, '');
 
-    console.log('📧 Email config:', {
-      host: process.env.EMAIL_SERVER_HOST || "smtp.gmail.com",
-      port: process.env.EMAIL_SERVER_PORT || "587",
-      user: process.env.EMAIL_SERVER_USER,
-      hasPassword: !!process.env.EMAIL_SERVER_PASSWORD,
-      passwordLength: cleanPassword.length
-    });
+    // Only log in development
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('📧 Email config:', {
+        host: process.env.EMAIL_SERVER_HOST || "smtp.gmail.com",
+        port: process.env.EMAIL_SERVER_PORT || "587",
+        user: process.env.EMAIL_SERVER_USER,
+        hasPassword: !!process.env.EMAIL_SERVER_PASSWORD
+      });
+    }
 
     return nodemailer.createTransporter({
       service: 'gmail', // Use Gmail service
@@ -26,9 +28,7 @@ function createTransporter() {
       },
       tls: {
         rejectUnauthorized: false // Accept self-signed certificates
-      },
-      logger: true, // Enable logging
-      debug: true // Enable debug output
+      }
     });
   }
 

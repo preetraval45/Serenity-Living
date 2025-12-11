@@ -30,7 +30,9 @@
       "Bash(del:*)",
       "Bash(psql:*)",
       "Bash(openssl rand:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": [],
