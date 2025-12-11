@@ -27,9 +27,7 @@ export async function POST(request) {
       console.error('Email sending failed (non-critical):', err)
     })
 
-    console.log('========================================')
     console.log('NEW TOUR BOOKING SUBMISSION')
-    console.log('========================================')
     console.log(JSON.stringify({
       timestamp: new Date().toISOString(),
       type: 'TOUR_BOOKING',
@@ -41,7 +39,6 @@ export async function POST(request) {
       time,
       message
     }, null, 2))
-    console.log('========================================')
 
     return NextResponse.json(
       {

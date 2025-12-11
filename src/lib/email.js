@@ -51,14 +51,10 @@ Submitted at: ${new Date().toLocaleString("en-US", {
   })}
   `.trim();
 
-  console.log("\n========================================");
   console.log("EMAIL NOTIFICATION - CONTACT FORM");
-  console.log("========================================");
   console.log("To: serenitylivingoflexington@gmail.com");
   console.log("Subject: New Contact Form Submission");
-  console.log("---");
   console.log(emailContent);
-  console.log("========================================\n");
 
   const transporter = createTransporter();
 
@@ -187,14 +183,10 @@ Submitted at: ${new Date().toLocaleString("en-US", {
   })}
   `.trim();
 
-  console.log("\n========================================");
   console.log("EMAIL NOTIFICATION - TOUR BOOKING");
-  console.log("========================================");
   console.log("To: serenitylivingoflexington@gmail.com");
   console.log("Subject: New Tour Booking Request");
-  console.log("---");
   console.log(emailContent);
-  console.log("========================================\n");
 
   const transporter = createTransporter();
 

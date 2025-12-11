@@ -27,9 +27,7 @@ export async function POST(request) {
       console.error('Email sending failed (non-critical):', err)
     })
 
-    console.log('========================================')
     console.log('NEW CONTACT FORM SUBMISSION')
-    console.log('========================================')
     console.log(JSON.stringify({
       timestamp: new Date().toISOString(),
       type: 'CONTACT_FORM',
@@ -39,7 +37,6 @@ export async function POST(request) {
       inquiry,
       message
     }, null, 2))
-    console.log('========================================')
 
     return NextResponse.json(
       {
