@@ -4,6 +4,13 @@ import nodemailer from "nodemailer";
 function createTransporter() {
   // If email credentials are available, use them
   if (process.env.EMAIL_SERVER_USER && process.env.EMAIL_SERVER_PASSWORD) {
+    console.log('📧 Email config:', {
+      host: process.env.EMAIL_SERVER_HOST || "smtp.gmail.com",
+      port: process.env.EMAIL_SERVER_PORT || "587",
+      user: process.env.EMAIL_SERVER_USER,
+      hasPassword: !!process.env.EMAIL_SERVER_PASSWORD
+    });
+
     return nodemailer.createTransport({
       host: process.env.EMAIL_SERVER_HOST || "smtp.gmail.com",
       port: parseInt(process.env.EMAIL_SERVER_PORT || "587"),
@@ -16,6 +23,7 @@ function createTransporter() {
   }
 
   // Fallback: return null if no credentials
+  console.log('⚠️  Email credentials not found in environment variables');
   return null;
 }
 
@@ -144,6 +152,7 @@ Serenity Living of Lexington Team
       return { success: true };
     } catch (error) {
       console.error("❌ Email sending failed:", error.message);
+      console.error("Full error details:", error);
       // Don't throw error - form submission should succeed even if email fails
       return { success: false, error: error.message };
     }
@@ -304,6 +313,7 @@ Serenity Living of Lexington Team
       return { success: true };
     } catch (error) {
       console.error("❌ Email sending failed:", error.message);
+      console.error("Full error details:", error);
       // Don't throw error - form submission should succeed even if email fails
       return { success: false, error: error.message };
     }
