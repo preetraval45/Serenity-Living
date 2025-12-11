@@ -16,7 +16,12 @@ export default function AdminSubmissions() {
 
   const fetchSubmissions = async () => {
     try {
-      const response = await fetch('/api/admin/submissions');
+      const response = await fetch('/api/admin/submissions', {
+        cache: 'no-store', // Disable caching to always get fresh data
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
       const data = await response.json();
 
       if (data.success) {
@@ -45,9 +50,24 @@ export default function AdminSubmissions() {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Form Submissions</h1>
-          <p className="mt-2 text-gray-600">View all contact forms and tour booking requests</p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Form Submissions</h1>
+            <p className="mt-2 text-gray-600">View all contact forms and tour booking requests</p>
+          </div>
+          <button
+            onClick={() => {
+              setLoading(true);
+              fetchSubmissions();
+            }}
+            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+              <path d="M21 3v5h-5"></path>
+            </svg>
+            Refresh
+          </button>
         </div>
 
         {/* Tabs */}

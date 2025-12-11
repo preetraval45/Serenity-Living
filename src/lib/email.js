@@ -4,11 +4,15 @@ import nodemailer from "nodemailer";
 function createTransporter() {
   // If email credentials are available, use them
   if (process.env.EMAIL_SERVER_USER && process.env.EMAIL_SERVER_PASSWORD) {
+    // Remove any spaces from the password (Gmail app passwords shouldn't have spaces)
+    const cleanPassword = process.env.EMAIL_SERVER_PASSWORD.replace(/\s+/g, '');
+
     console.log('📧 Email config:', {
       host: process.env.EMAIL_SERVER_HOST || "smtp.gmail.com",
       port: process.env.EMAIL_SERVER_PORT || "587",
       user: process.env.EMAIL_SERVER_USER,
-      hasPassword: !!process.env.EMAIL_SERVER_PASSWORD
+      hasPassword: !!process.env.EMAIL_SERVER_PASSWORD,
+      passwordLength: cleanPassword.length
     });
 
     return nodemailer.createTransporter({
@@ -18,11 +22,13 @@ function createTransporter() {
       secure: false, // Use STARTTLS
       auth: {
         user: process.env.EMAIL_SERVER_USER,
-        pass: process.env.EMAIL_SERVER_PASSWORD,
+        pass: cleanPassword, // Use cleaned password without spaces
       },
       tls: {
         rejectUnauthorized: false // Accept self-signed certificates
-      }
+      },
+      logger: true, // Enable logging
+      debug: true // Enable debug output
     });
   }
 
