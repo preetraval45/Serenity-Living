@@ -11,14 +11,18 @@ function createTransporter() {
       hasPassword: !!process.env.EMAIL_SERVER_PASSWORD
     });
 
-    return nodemailer.createTransport({
+    return nodemailer.createTransporter({
+      service: 'gmail', // Use Gmail service
       host: process.env.EMAIL_SERVER_HOST || "smtp.gmail.com",
       port: parseInt(process.env.EMAIL_SERVER_PORT || "587"),
-      secure: false,
+      secure: false, // Use STARTTLS
       auth: {
         user: process.env.EMAIL_SERVER_USER,
         pass: process.env.EMAIL_SERVER_PASSWORD,
       },
+      tls: {
+        rejectUnauthorized: false // Accept self-signed certificates
+      }
     });
   }
 
